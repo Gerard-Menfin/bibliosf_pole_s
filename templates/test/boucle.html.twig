@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+     <h2>Balise FOR</h2>
+    
+    <p>Pour savoir si une variable est définie, on utilise le <mark>test</mark> <i>defined</i> : 
+          <code><i>variable</i> is defined</code></p>
+     {% if taille is defined %}
+          {% for i in 0..taille %} {# for(i=0; i<=taille; i++)  #}
+               <p> {{ "Nombre " ~ i }}</p>
+          {% endfor %}
+     {% endif %}
+
+     <h3>Boucle alphabétique</h3>
+     {% for i in 'a'..'z' %}
+          {{ i }}
+     {% endfor %}
+
+     <h3>Afficher les valeurs d'un tableau</h3>
+     <p>Pour connaître la taille d'un tableau avec Twig on va utiliser un type de fonction particulier qu'on appelle
+          <mark>FILTRE</mark>.</p>
+     <p>cf. <a href="https://twig.symfony.com/doc/#reference">la documentation de TWIG</a></p>
+
+     <p>Pour utiliser le filtre <i>length</i> sur la variable <i>tableau</i> : <code>tableau|length</code></p>
+
+     {% for nb in 0..maVariable|length - 1 %}
+          <p>{{ nb ~ " : " ~ maVariable[nb] }}</p>
+     {% endfor %}
+     
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+     <ul class="list-group">
+          <li class="list-group-item">Addition : {{ a }} + {{ b }} = {{ a + b }}</li>
+          <li class="list-group-item">Soustraction : {{ a }} - {{ b }} = {{ a - b }}</li>
+          <li class="list-group-item">Multiplication : {{ a }} * {{ b }} = {{ a * b }}</li>
+          {% if b != 0 %}
+               <li class="list-group-item">Division : {{ a }} / {{ b }} = {{ a / b }}</li>
+          {% elseif b == 2 %}
+               <li class="list-group-item">
+                    Division : {{ a }} / {{ b }} = {{ a / b }}
+                    <div class="alert alert-success">B est égal à 2</div>
+               </li>
+          {% else %}
+               <li class="list-group-item">
+                    <div class="alert alert-danger">Division par 0 impossible</div>
+               </li>
+          {% endif %}
+     </ul>
+{% endblock %}

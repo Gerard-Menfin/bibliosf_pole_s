@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+     <p>
+     {% for mot in tableau %}
+          {{ mot ~ " " }}
+     {% endfor %}
+     </p>
+{% endblock %}

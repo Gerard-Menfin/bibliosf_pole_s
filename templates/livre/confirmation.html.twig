@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Confirmation de la suppression{% endblock %}
+
+{% block body %}
+    <h2 class="mt-3">Voulez-vous vraiment supprimer livre suivant ? </h2>
+    <ul class="list-group my-5">
+        <li class="list-group-item">
+            <div class="d-flex">
+                <strong class="col-2">ID</strong><span class="col-10">{{ livre.id }}</span>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex">
+                <strong class="col-2">Titre</strong><span class="col-10">{{ livre.titre }}</span>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex">
+                <strong class="col-2">Résumé</strong><span class="col-10">{{ livre.resume }}</span>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex">
+                <strong class="col-2">Couverture</strong><span class="col-10">{{ livre.couverture }}</span>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <form method="post">
+                    <button type="submit" class="btn btn-success">Confirmer</button>
+                </form>
+                <a href="{{ path('app_livre') }}" class="btn btn-danger">Annuler</a>
+            </div>
+        </li>
+    </ul>
+{% endblock %}

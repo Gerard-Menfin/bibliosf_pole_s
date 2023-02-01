@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+     <h2>Afficher toutes les valeurs d'un tableau associatif</h2>
+     <p>On peut utiliser une balise FOR comme la boucle FOREACH de PHP.</p>
+     <p>Pour parcourir toutes les valeurs d'une variable nommée <i>tableau</i> :</p>
+     <p>Syntaxe : <code>for valeur in tableau</code></p>
+
+     <table class="table table-bordered">
+          <thead class="table-dark">
+               <tr>
+                    <th>Valeur</th>
+               </tr>
+          </thead>
+          <tbody>
+          {% for valeur in maVariable %}
+               <tr>
+                    <td>{{ valeur }}</td>
+               </tr>
+          {% endfor %}
+          </tbody>
+     </table>
+
+     <p>Pour parcourir le tableau et récupérer les indices : </p>
+     <p>Syntaxe : <code>for indice, valeur in tableau</code></p>
+     <table class="table table-bordered">
+          <thead class="table-dark">
+               <tr>
+                    <th>Indice</th>
+                    <th>Valeur</th>
+               </tr>
+          </thead>
+          <tbody>
+          {% for indice, valeur in maVariable %}
+               <tr>
+                    <th>{{ indice }}</th>
+                    <td>{{ valeur }}</td>
+               </tr>
+          {% endfor %}
+          </tbody>
+     </table>
+
+     <p>On peut aussi récupérer les valeurs en utilisant leur indice. On peut utiliser la syntaxe de php : </p>
+     <p>Syntaxe : <code>tableau["indice"]</code></p>
+     <p>Mais on peut aussi utiliser une syntaxe propre à Twig, qui ne fonctionne que pour les tableaux associatifs et
+          les objets.</p>
+     <p>Syntaxe : <code>tableau.indice</code></p>
+     
+     <p>Je m'appelle {{ maVariable['prenom'] ~ " " ~ maVariable['nom'] }} et j'ai {{ maVariable['age'] }} ans.</p>
+     <p>Je m'appelle {{ maVariable.prenom ~ " " ~ maVariable.nom }} et j'ai {{ maVariable.age }} ans.</p>
+
+     <p>NB : dans Twig, l'opérateur de concaténation est : <code>~</code></p>
+     <p>Le <code>.</code> est utilisé pour accéder aux propriétés d'un objet ou aux indices d'un tableau associatif.</p>
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{# Affichage des messages flash. Pour accéder aux messages, on utilise la variable 'app' 
+    qui est une variable globale de Twig. 
+    'app' est un objet.
+    'app.flashes' est un array associatif, chaque valeur étant un array de string
+
+    ? Voici un exemple de messages flashes en mémoire. C'est un array associatif d'array
+    ?    [                                                                              
+    ?        "danger" => [                                                              
+    ?                        "la requête a échoué",                                     
+    ?                        "la bdd n'a pas été modifié",                              
+    ?                        "erreur d'identifiants"                                    
+    ?                    ],                                                             
+    ??                                                                                  
+    ?        "success" => [                                                             
+    ?                        "requête réalisée avec succès",                            
+    ?                        "nouveau livre enregistré avec succès",                    
+    ?                        "identifiants corrects"                                    
+    ?                    ],                                                             
+    ??                                                                                  
+    ?        "info"   => [                                                              
+    ?                        "une nouvelle version est disponible",                     
+    ?                        "il reste 2 jours pour profiter de l'offre",               
+    ?                        "Vous êtes maintenant connecté"                            
+    ?                    ],                                                             
+    ?    ]                                                                              
+    ??                                                                                  
+
+#}
+
+{% for type, messages in app.flashes %}
+    {% for msg in messages %}
+        <div class="alert alert-{{ type }}">{{ msg|raw }}</div>
+    {% endfor %}
+{% endfor %}
+
