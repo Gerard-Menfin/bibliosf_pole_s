@@ -8,12 +8,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
+                {# EXERCICE : le lien déconnexion ne doit s'afficher que si on est connecté. Les liens
+                                connexion et inscription ne doivent s'afficher que si on est déconnecté #}
+                {% if app.user %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">
+                            <i class="bi-box-arrow-right"></i>
+                        </a>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}"><i class="bi-box-arrow-in-left"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}"><i class="bi-sign-intersection"></i></a>
+                    </li>
+
+                {% endif %}
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -29,6 +44,10 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
+
+                {# is_granted est une fonction qui renvoie true si l'utilisateur connecté à le rôle passé en argument. #}
+                {% if is_granted("ROLE_ADMIN") %}
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -61,6 +80,19 @@
                         <li><a class="dropdown-item" href="{{ path('app_admin_genre_new')   }}">Ajouter</a></li>
                     </ul>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Abonnés
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_admin_abonne_index') }}">Liste</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_admin_abonne_new')   }}">Ajouter</a></li>
+                    </ul>
+                </li>
+
+                {% endif %}
 
                 <li class="nav-item">
                     <a class="nav-link disabled">Disabled</a>

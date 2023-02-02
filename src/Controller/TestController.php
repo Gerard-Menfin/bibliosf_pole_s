@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestController extends AbstractController
 {
@@ -49,6 +50,7 @@ class TestController extends AbstractController
     }
 
     #[Route('/test/salut', name: 'app_test_salut')]
+    #[IsGranted("ROLE_BIBLIO")]
     public function salut()
     {
         $personne = "Gérard";

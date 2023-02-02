@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Libelle</th>
                 <th>Termes</th>
+                <th>Nb de livres</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ genre.id }}</td>
                 <td>{{ genre.libelle }}</td>
                 <td>{{ genre.termes }}</td>
+                <td>{{ genre.livres|length }}</td>
                 <td>
                     <a href="{{ path('app_admin_genre_show', {'id': genre.id}) }}">show</a>
                     <a href="{{ path('app_admin_genre_edit', {'id': genre.id}) }}">edit</a>

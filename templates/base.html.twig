@@ -25,7 +25,8 @@
 
             {{ include("_communs/messages.html.twig") }}
             
-            <h1 class="my-1">Bienvenue à la bibliothèque</h1>
+            <h1 class="my-3">{% block titreH1 %}Bienvenue à la bibliothèque{% endblock %}</h1>
+            
             {% block body %}
                 <p>Ceci est le contenu du block body de base.html.twig</p>
             {% endblock %}
