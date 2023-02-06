@@ -25,11 +25,14 @@
                 <td>{{ livre.titre }}</td>
                 <td>{{ livre.auteur.prenom ~ " " ~ livre.auteur.nom }}</td>
                 <td>{{ livre.resume }}</td>
-                <td>{{ livre.couverture }}</td>
                 <td>
-                    {% for genre in livre.genres %}
+                    <img class="miniature" src="/images/{{ livre.couverture }}" alt="pas de couverture">
+                </td>
+                <td>
+                    {# {% for genre in livre.genres %}
                         {{ genre.libelle ~ ", " }}
-                    {% endfor %}
+                    {% endfor %} #}
+                    {{ livre.genresTexte }}
                 </td>
                 <td>
                     <a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}">show</a>

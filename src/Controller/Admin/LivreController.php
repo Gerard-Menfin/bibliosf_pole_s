@@ -29,6 +29,19 @@ class LivreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // si un fichier a été uploadé dans l'input nommé 'couverture'...
+            $fichier = $form->get("couverture")->getData();
+            if( $fichier ) {
+                $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                $nouveauFichier = $nomFichier . "_" . uniqid();
+                $nouveauFichier .= "." . $fichier->guessExtension();
+                // on copie le fichier uploadé dans le dossier image, avec le nouveau nom de fichier
+                $fichier->move($this->getParameter("dossier_images"), $nouveauFichier);
+
+                // on modifie la propriété 'couverture' de l'objet Livre avant qu'il ne soit enregistré en bdd
+                $livre->setCouverture($nouveauFichier);
+            }
+
             $livreRepository->save($livre, true);
 
             return $this->redirectToRoute('app_admin_livre_index', [], Response::HTTP_SEE_OTHER);
@@ -48,13 +61,25 @@ class LivreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_livre_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'app_admin_livre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Livre $livre, LivreRepository $livreRepository): Response
     {
         $form = $this->createForm(LivreType::class, $livre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $fichier = $form->get("couverture")->getData();
+            if( $fichier ) {
+                $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                $nouveauFichier = $nomFichier . "_" . uniqid();
+                $nouveauFichier .= "." . $fichier->guessExtension();
+                // on copie le fichier uploadé dans le dossier image, avec le nouveau nom de fichier
+                $fichier->move($this->getParameter("dossier_images"), $nouveauFichier);
+
+                // on modifie la propriété 'couverture' de l'objet Livre avant qu'il ne soit enregistré en bdd
+                $livre->setCouverture($nouveauFichier);
+            }
+
             $livreRepository->save($livre, true);
 
             return $this->redirectToRoute('app_admin_livre_index', [], Response::HTTP_SEE_OTHER);

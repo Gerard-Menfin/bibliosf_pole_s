@@ -3,8 +3,9 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<div class="card-columns">
-
-
-</div>
+     <div class="card-columns">
+          {% for livre in livres %}
+               {{ include("livre/vignette.html.twig") }}
+          {% endfor %}
+     </div>
 {% endblock %}
