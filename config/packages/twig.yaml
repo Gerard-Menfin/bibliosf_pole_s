@@ -1,6 +1,9 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['bootstrap_5_layout.html.twig']
+    date:
+        # permet de choisir le format de date par défaut
+        format: d/m/y
 
 when@test:
     twig:

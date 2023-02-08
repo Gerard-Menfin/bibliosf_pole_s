@@ -1,18 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Abonne index{% endblock %}
+{% block title %}Liste des abonnés{% endblock %}
+
+{% block titreH1 %}
+    {# La fonction twig 'block' retourne le contenu d'un block. On peut l'utiliser pour copier le contenu d'un block dans un autre block. #}
+    {{ block("title") }}
+{% endblock %}
 
 {% block body %}
-    <h1>Abonne index</h1>
 
     <table class="table">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>Id</th>
                 <th>Pseudo</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Prenom</th>
+                <th>Autorisations</th>
                 <th>Nom</th>
                 <th>actions</th>
             </tr>
@@ -22,13 +24,12 @@
             <tr>
                 <td>{{ abonne.id }}</td>
                 <td>{{ abonne.pseudo }}</td>
-                <td>{{ abonne.roles ? abonne.roles|json_encode : '' }}</td>
-                <td>{{ abonne.password }}</td>
-                <td>{{ abonne.prenom }}</td>
-                <td>{{ abonne.nom }}</td>
+                <td>{{ abonne.autorisations }}</td>
+                <td>{{ abonne.identite }}</td>
                 <td>
-                    <a href="{{ path('app_admin_abonne_show', {'id': abonne.id}) }}">show</a>
-                    <a href="{{ path('app_admin_abonne_edit', {'id': abonne.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_abonne_show', {'id': abonne.id}) }}"><i class="bi-eye"></i></a>
+                    <a href="{{ path('app_admin_abonne_edit', {'id': abonne.id}) }}"><i class="bi-pencil"></i></a>
+                    {{ include('admin/abonne/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -39,5 +40,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_abonne_new') }}">Create new</a>
+    <a href="{{ path('app_admin_abonne_new') }}"class="btn btn-primary"><i class="bi-plus"></i> Nouveau</a>
 {% endblock %}

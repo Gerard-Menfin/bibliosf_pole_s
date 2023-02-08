@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Emprunt index{% endblock %}
+{% block title %}Liste des emprunts{% endblock %}
+
+{% block titreH1 %}{{ block("title") }}{% endblock %}
 
 {% block body %}
-    <h1>Emprunt index</h1>
 
     <table class="table">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>Id</th>
-                <th>Sortie</th>
-                <th>Retour</th>
+                <th>Abonné</th>
+                <th>Livre</th>
+                <th>Date d'emprunt</th>
+                <th>Date de retour</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,20 +21,26 @@
         {% for emprunt in emprunts %}
             <tr>
                 <td>{{ emprunt.id }}</td>
-                <td>{{ emprunt.sortie ? emprunt.sortie|date('Y-m-d') : '' }}</td>
-                <td>{{ emprunt.retour ? emprunt.retour|date('Y-m-d') : '' }}</td>
+                <td>{{ emprunt.abonne.pseudo }}</td>
+                <td>{{ emprunt.livre.titre ~ " - " ~ emprunt.livre.auteur.prenom ~ " " ~ emprunt.livre.auteur.nom }}</td>
+                <td>{{ emprunt.sortie|date('d/m/Y') }}</td>
+                <td>{{ emprunt.retour ? emprunt.retour|date('d/m/Y') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_emprunt_show', {'id': emprunt.id}) }}">show</a>
-                    <a href="{{ path('app_admin_emprunt_edit', {'id': emprunt.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_emprunt_show', {'id': emprunt.id}) }}"><i class="bi-eye"></i></a>
+                    <a href="{{ path('app_admin_emprunt_edit', {'id': emprunt.id}) }}"><i class="bi-pencil"></i></a>
+                    {{ include('admin/emprunt/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Aucun emprunt</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_emprunt_new') }}">Create new</a>
+    <a href="{{ path('app_admin_emprunt_new') }}" class="btn btn-primary">
+        <i class="bi-plus"></i> Nouveau
+    </a>
 {% endblock %}
+

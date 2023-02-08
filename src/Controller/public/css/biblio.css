@@ -6,7 +6,3 @@
      height: 200px;
      width: auto;
 }
-
-.card-columns > div.card {
-     display: inline-block !important;
-}

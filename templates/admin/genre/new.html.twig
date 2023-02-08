@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Genre{% endblock %}
+{% block title %}Nouveau Genre{% endblock %}
+
+{% block titreH1 %} {{ block('title') }} {% endblock %}
 
 {% block body %}
-    <h1>Create new Genre</h1>
-
     {{ include('admin/genre/_form.html.twig') }}
-
-    <a href="{{ path('app_admin_genre_index') }}">back to list</a>
 {% endblock %}

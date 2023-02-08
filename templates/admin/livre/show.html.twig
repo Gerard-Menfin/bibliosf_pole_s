@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Livre{% endblock %}
+{% block titreH1 %} {{ block('title') }} {% endblock %}
 
 {% block body %}
 
@@ -37,7 +38,5 @@
         <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}" class="btn btn-secondary">
             <i class="bi-pencil"></i> Modifier
         </a>
-
-        {{ include('admin/livre/_delete_form.html.twig') }}
     </div>
 {% endblock %}

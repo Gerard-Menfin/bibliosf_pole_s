@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface as Hasher;
 
 #[Route('/admin/abonne')]
 #[IsGranted("ROLE_ADMIN")]
@@ -24,13 +25,20 @@ class AbonneController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_abonne_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AbonneRepository $abonneRepository): Response
+    public function new(Request $request, AbonneRepository $abonneRepository, Hasher $hasher): Response
     {
         $abonne = new Abonne();
         $form = $this->createForm(AbonneType::class, $abonne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // on récupère le mot de passe tapé par l'utilisateur dans le formulaire
+            $mdp = $form->get("password")->getData();
+            // on encode le mot de passe (en utilisant un objet de la classe UserPasswordHasherInterface)
+            $mdpEncode = $hasher->hashPassword($abonne, $mdp);
+            // on affecte le mot de passe encodé à l'objet Abonne qui va être enregistré en bdd
+            $abonne->setPassword($mdpEncode);
+
             $abonneRepository->save($abonne, true);
 
             return $this->redirectToRoute('app_admin_abonne_index', [], Response::HTTP_SEE_OTHER);
@@ -51,12 +59,16 @@ class AbonneController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_abonne_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Abonne $abonne, AbonneRepository $abonneRepository): Response
+    public function edit(Request $request, Abonne $abonne, AbonneRepository $abonneRepository, Hasher $hasher): Response
     {
         $form = $this->createForm(AbonneType::class, $abonne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ( $mdp = $form->get("password")->getData() ) {
+                $mdpEncode = $hasher->hashPassword($abonne, $mdp);
+                $abonne->setPassword($mdpEncode);
+            }
             $abonneRepository->save($abonne, true);
 
             return $this->redirectToRoute('app_admin_abonne_index', [], Response::HTTP_SEE_OTHER);

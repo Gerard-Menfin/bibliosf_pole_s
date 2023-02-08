@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Auteur index{% endblock %}
+{% block title %}Liste des auteurs{% endblock %}
+
+{% block titreH1 %}{{ block("title") }}{% endblock %}
 
 {% block body %}
-    <h1>Auteur index</h1>
 
     <table class="table">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>Id</th>
                 <th>Prenom</th>
@@ -23,8 +24,9 @@
                 <td>{{ auteur.nom }}</td>
                 <td>{{ auteur.biographie }}</td>
                 <td>
-                    <a href="{{ path('app_admin_auteur_show', {'id': auteur.id}) }}">show</a>
-                    <a href="{{ path('app_admin_auteur_edit', {'id': auteur.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_auteur_show', {'id': auteur.id}) }}"><i class="bi-eye"></i></a>
+                    <a href="{{ path('app_admin_auteur_edit', {'id': auteur.id}) }}"><i class="bi-pencil"></i></a>
+                    {{ include('admin/auteur/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -35,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_auteur_new') }}">Create new</a>
+    <a href="{{ path('app_admin_auteur_new') }}"class="btn btn-primary"><i class="bi-plus"></i> Nouveau</a>
 {% endblock %}

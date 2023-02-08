@@ -35,8 +35,9 @@
                     {{ livre.genresTexte }}
                 </td>
                 <td>
-                    <a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}">show</a>
-                    <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}"><i class="bi-eye"></i></a>
+                    <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}"><i class="bi-pencil"></i></a>
+                    {{ include('admin/livre/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -47,5 +48,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_livre_new') }}">Create new</a>
+    <a href="{{ path('app_admin_livre_new') }}"class="btn btn-primary"><i class="bi-plus"></i> Nouveau</a>
 {% endblock %}

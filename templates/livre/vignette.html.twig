@@ -18,5 +18,9 @@
         <a href="" class="card-link"> 
             <i class="fa fa-book"></i> Voir plus 
         </a>
+
+        <a href="{{ path("app_espace_lecteur_reserver", {id: livre.id}) }}" class="card-link reserver"> 
+            <i class="fa fa-cart-plus"></i> Réserver
+        </a>
     </div>
 </div>

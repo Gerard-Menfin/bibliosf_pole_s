@@ -197,4 +197,33 @@ class Abonne implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    public function getIdentite() : string
+    {
+        return $this->prenom . " " . $this->nom;
+    }
+
+    public function getAutorisations() : string
+    {
+        $texte = "";
+        foreach ($this->roles as $role) {
+            $texte .= $texte ? ", " : "";
+            switch ($role) {
+                case 'ROLE_ADMIN':
+                    $texte .= "Administrateur";
+                    break;
+                case 'ROLE_BIBLIO':
+                    $texte .= "Bibliothécaire";
+                    break;
+                case 'ROLE_LECTEUR':
+                    $texte .= "Lecteur";
+                    break;
+                
+                default:
+                    $texte .= "Abonné";
+            }
+        }
+        return $texte;
+    }
 }

@@ -2,8 +2,9 @@
 
 {% block title %}Genre{% endblock %}
 
+{% block titreH1 %} {{ block('title') }} {% endblock %}
+
 {% block body %}
-    <h1>Genre</h1>
 
     <table class="table">
         <tbody>
@@ -52,9 +53,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_genre_index') }}">back to list</a>
+    
 
-    <a href="{{ path('app_admin_genre_edit', {'id': genre.id}) }}">edit</a>
-
-    {{ include('admin/genre/_delete_form.html.twig') }}
+    <a href="{{ path('app_admin_genre_edit', {'id': genre.id}) }}"><i class="bi-pencil"></i></a>
 {% endblock %}

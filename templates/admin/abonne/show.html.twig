@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Abonne{% endblock %}
+{% block title %}Abonné{% endblock %}
+
+{% block titreH1 %} {{ block('title') }} {% endblock %}
 
 {% block body %}
-    <h1>Abonne</h1>
 
     <table class="table">
         <tbody>
@@ -16,27 +17,50 @@
                 <td>{{ abonne.pseudo }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ abonne.roles ? abonne.roles|json_encode : '' }}</td>
+                <th>Rôles</th>
+                <td>{{ abonne.autorisations}}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ abonne.password }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ abonne.prenom }}</td>
+                <th>Mot de passe</th>
+                <td>*****</td>
             </tr>
             <tr>
                 <th>Nom</th>
-                <td>{{ abonne.nom }}</td>
+                <td>{{ abonne.identite }}</td>
+            </tr>
+
+            <tr>
+                <th>Emprunts</th>
+                <td>
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Livre</th>
+                                <th>Emprunté le</th>
+                                <th>Rendu le</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for emprunt in abonne.emprunts %}
+                                <tr>
+                                    <td>{{ emprunt.livre.titre }}</td>
+                                    <td>{{ emprunt.sortie|date() }}</td>
+                                    <td>{{ emprunt.retour ? emprunt.retour|date("d/m/Y") : "à rendre" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_abonne_index') }}">back to list</a>
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_admin_abonne_index') }}" class="btn btn-secondary">
+            <i class="bi-arrow-return-left"></i> Retour à la liste
+        </a>
 
-    <a href="{{ path('app_admin_abonne_edit', {'id': abonne.id}) }}">edit</a>
-
-    {{ include('admin/abonne/_delete_form.html.twig') }}
+        <a href="{{ path('app_admin_abonne_edit', {'id': abonne.id}) }}" class="btn btn-primary"><i class="bi-pencil"></i></a>
+    </div>
 {% endblock %}

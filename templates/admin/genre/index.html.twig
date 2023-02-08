@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Genre index{% endblock %}
+{% block title %}Liste des genres{% endblock %}
+
+{% block titreH1 %}{{ block("title") }}{% endblock %}
 
 {% block body %}
-    <h1>Genre index</h1>
-
     <table class="table">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>Id</th>
                 <th>Libelle</th>
@@ -23,8 +23,9 @@
                 <td>{{ genre.termes }}</td>
                 <td>{{ genre.livres|length }}</td>
                 <td>
-                    <a href="{{ path('app_admin_genre_show', {'id': genre.id}) }}">show</a>
-                    <a href="{{ path('app_admin_genre_edit', {'id': genre.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_genre_show', {'id': genre.id}) }}"><i class="bi-eye"></i></a>
+                    <a href="{{ path('app_admin_genre_edit', {'id': genre.id}) }}"><i class="bi-pencil"></i></a>
+                    {{ include('admin/genre/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -35,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_genre_new') }}">Create new</a>
+    <a href="{{ path('app_admin_genre_new') }}"class="btn btn-primary"><i class="bi-plus"></i> Nouveau</a>
 {% endblock %}

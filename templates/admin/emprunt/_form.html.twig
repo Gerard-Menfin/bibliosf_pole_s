@@ -1,4 +1,8 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+        <div class="d-flex justify-content-between">
+        <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('app_admin_emprunt_index') }}" class="btn btn-danger"> <i class="bi-arrow-return-left"></i> Annuler</a>
+    </div>
+
 {{ form_end(form) }}

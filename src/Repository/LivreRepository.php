@@ -39,20 +39,25 @@ class LivreRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Livre[] Returns an array of Livre objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('l.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Livre[] Returns an array of Livre objects
+    * Retourne le résultat de la requête 
+        SELECT l.*
+        FROM livre l
+        WHERE titre LIKE '%...%'
+        ORDER BY titre
+    */
+   public function findByRechercheTitre($mot): array
+   {
+       return $this->createQueryBuilder('l')
+           ->andWhere('l.titre LIKE :val')
+           ->setParameter('val', "%$mot%")
+           ->orderBy('l.titre', 'ASC')
+        //    ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Livre
 //    {
